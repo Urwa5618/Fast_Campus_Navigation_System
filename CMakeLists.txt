@@ -9,6 +9,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_library(core
     src/core/Graph.cpp
     src/core/DataLoader.cpp
+    src/core/Algorithms.cpp
 )
 target_include_directories(core PUBLIC src/core)
 
