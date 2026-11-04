@@ -1,0 +1,19 @@
+id,name,x,y
+0,Entrance,80,100
+1,EE Building,230,100
+2,CS Building,380,100
+3,Basketball/Volleyball Court,530,100
+4,Badminton Court,680,100
+5,Sports Room,830,100
+6,Futsal Court,80,300
+7,MultiPurpose Building,230,300
+8,Library,380,300
+9,Cafeteria,530,300
+10,FAST Dhaba,680,300
+11,Mosque,830,300
+12,Juice Corner,80,500
+13,Tasty Hut,230,500
+14,Print Shop,380,500
+15,Biryani/Chai/Paratha Shop,530,500
+16,Fries Shop,680,500
+17,Shawarma Shop,830,500
