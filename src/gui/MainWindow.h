@@ -15,6 +15,10 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(const Graph &graph, QWidget *parent = nullptr);
 
+private slots:
+    void findRoute();
+    void clearAll();
+
 private:
     Graph graph_;
     MapView *map_;
