@@ -22,16 +22,16 @@ static double segmentDistance(const Graph &g, int u, int v)
     return best;
 }
 
-MainWindow::MainWindow(const Graph &graph, const QString &mapImage, QWidget *parent)
+MainWindow::MainWindow(const Graph &graph, const QString &dataDir, QWidget *parent)
     : QMainWindow(parent), graph_(graph)
 {
 
     setWindowTitle("FAST Campus Navigation System");
-    resize(1250, 680);
+    resize(1200, 610);
 
     // ---------- top: map ----------
     map_ = new MapView(this);
-    map_->setGraph(graph_, mapImage);
+    map_->setGraph(graph_, dataDir);
 
     // ---------- bottom: controls ----------
     fromBox_ = new QComboBox;

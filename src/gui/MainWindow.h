@@ -13,7 +13,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    MainWindow(const Graph &graph, const QString &mapImage, QWidget *parent = nullptr);
+    MainWindow(const Graph &graph, const QString &dataDir, QWidget *parent = nullptr);
 
 private slots:
     void findRoute();

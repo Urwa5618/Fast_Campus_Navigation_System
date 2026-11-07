@@ -6,8 +6,9 @@
 #include "Graph.h"
 
 class QGraphicsScene;
-class QGraphicsLineItem;
+class QGraphicsPathItem;
 class QGraphicsEllipseItem;
+class QGraphicsItem;
 class QWheelEvent;
 class QMouseEvent;
 
@@ -18,7 +19,8 @@ class MapView : public QGraphicsView
     Q_OBJECT
 public:
     explicit MapView(QWidget *parent = nullptr);
-    void setGraph(const Graph &g, const QString &imagePath);
+    // dataDir must contain campus_map.png and (optionally) paths.csv
+    void setGraph(const Graph &g, const QString &dataDir);
     void showRoute(const std::vector<int> &path);
     void clearRoute();
     void fitAll();
@@ -31,7 +33,8 @@ protected:
 private:
     QGraphicsScene *scene_;
     std::vector<QGraphicsEllipseItem *> nodeItems_;                // index = location id
-    std::map<std::pair<int, int>, QGraphicsLineItem *> edgeItems_; // key = (smaller id, larger id)
+    std::map<std::pair<int, int>, QGraphicsPathItem *> edgeItems_; // key = (smaller id, larger id)
+    std::map<std::pair<int, int>, QGraphicsItem *> edgeTags_;      // distance labels
     double fitScale_ = 1.0;
     bool zoomed_ = false;
 };
