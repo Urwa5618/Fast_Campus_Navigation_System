@@ -22,18 +22,18 @@ static double segmentDistance(const Graph &g, int u, int v)
     return best;
 }
 
-MainWindow::MainWindow(const Graph &graph, QWidget *parent)
+MainWindow::MainWindow(const Graph &graph, const QString &mapImage, QWidget *parent)
     : QMainWindow(parent), graph_(graph)
 {
 
     setWindowTitle("FAST Campus Navigation System");
-    resize(1150, 620);
+    resize(1250, 680);
 
-    // ---------- left: map ----------
+    // ---------- top: map ----------
     map_ = new MapView(this);
-    map_->setGraph(graph_);
+    map_->setGraph(graph_, mapImage);
 
-    // ---------- right: controls ----------
+    // ---------- bottom: controls ----------
     fromBox_ = new QComboBox;
     toBox_ = new QComboBox;
     for (int i = 0; i < graph_.size(); ++i)
@@ -47,41 +47,57 @@ MainWindow::MainWindow(const Graph &graph, QWidget *parent)
     fromBox_->setCurrentIndex(-1);
     toBox_->setCurrentIndex(-1);
 
+    auto *selectBox = new QGroupBox("Route");
+    auto *selectLayout = new QVBoxLayout(selectBox);
+    selectLayout->addWidget(new QLabel("From"));
+    selectLayout->addWidget(fromBox_);
+    selectLayout->addWidget(new QLabel("To"));
+    selectLayout->addWidget(toBox_);
+
     dijkstraRadio_ = new QRadioButton("Shortest distance (Dijkstra)");
     bfsRadio_ = new QRadioButton("Fewest stops (BFS)");
     dijkstraRadio_->setChecked(true);
+    findBtn_ = new QPushButton("Find Route");
+    clearBtn_ = new QPushButton("Clear");
 
     auto *algoBox = new QGroupBox("Algorithm");
     auto *algoLayout = new QVBoxLayout(algoBox);
     algoLayout->addWidget(dijkstraRadio_);
     algoLayout->addWidget(bfsRadio_);
-
-    findBtn_ = new QPushButton("Find Route");
-    clearBtn_ = new QPushButton("Clear");
+    auto *buttonRow = new QHBoxLayout;
+    buttonRow->addWidget(findBtn_);
+    buttonRow->addWidget(clearBtn_);
+    algoLayout->addLayout(buttonRow);
+    algoLayout->addStretch();
 
     stepsList_ = new QListWidget;
+    auto *stepsBox = new QGroupBox("Route steps");
+    auto *stepsLayout = new QVBoxLayout(stepsBox);
+    stepsLayout->addWidget(stepsList_);
+
     summaryLabel_ = new QLabel("Choose a start and destination.");
     summaryLabel_->setWordWrap(true);
+    summaryLabel_->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+    auto *summaryBox = new QGroupBox("Summary");
+    auto *summaryLayout = new QVBoxLayout(summaryBox);
+    summaryLayout->addWidget(summaryLabel_);
 
-    auto *panel = new QWidget;
-    panel->setFixedWidth(320);
-    auto *panelLayout = new QVBoxLayout(panel);
-    panelLayout->addWidget(new QLabel("<b>From</b>"));
-    panelLayout->addWidget(fromBox_);
-    panelLayout->addWidget(new QLabel("<b>To</b>"));
-    panelLayout->addWidget(toBox_);
-    panelLayout->addWidget(algoBox);
-    panelLayout->addWidget(findBtn_);
-    panelLayout->addWidget(clearBtn_);
-    panelLayout->addWidget(new QLabel("<b>Route steps</b>"));
-    panelLayout->addWidget(stepsList_, 1);
-    panelLayout->addWidget(summaryLabel_);
+    auto *controls = new QWidget;
+    controls->setFixedHeight(200);
+    auto *controlsLayout = new QHBoxLayout(controls);
+    controlsLayout->setContentsMargins(6, 0, 6, 6);
+    controlsLayout->addWidget(selectBox, 2);
+    controlsLayout->addWidget(algoBox, 2);
+    controlsLayout->addWidget(stepsBox, 4);
+    controlsLayout->addWidget(summaryBox, 2);
 
     // ---------- put both together ----------
     auto *central = new QWidget;
-    auto *mainLayout = new QHBoxLayout(central);
+    auto *mainLayout = new QVBoxLayout(central);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setSpacing(4);
     mainLayout->addWidget(map_, 1);
-    mainLayout->addWidget(panel);
+    mainLayout->addWidget(controls);
     setCentralWidget(central);
 
     connect(findBtn_, &QPushButton::clicked, this, &MainWindow::findRoute);

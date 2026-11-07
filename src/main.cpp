@@ -43,7 +43,15 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    MainWindow window(g);
+    QString mapImage = dataDir + "/campus_map.png";
+    if (!QFileInfo::exists(mapImage))
+    {
+        QMessageBox::warning(nullptr, "Map image missing",
+                             "data/campus_map.png was not found. "
+                             "The map will be shown without its background image.");
+    }
+
+    MainWindow window(g, mapImage);
     window.show();
     return app.exec();
 }

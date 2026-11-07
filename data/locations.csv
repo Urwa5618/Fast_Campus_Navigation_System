@@ -1,19 +1,19 @@
 id,name,x,y
-0,Entrance,450,300
-1,EE Building,330,180
-2,CS Building,450,150
-3,Basketball/Volleyball Court,570,180
-4,Badminton Court,720,170
-5,Sports Room,810,300
-6,Futsal Court,690,420
-7,MultiPurpose Building,340,420
-8,Library,200,390
-9,Cafeteria,110,480
-10,FAST Dhaba,230,540
-11,Mosque,220,260
-12,Juice Corner,420,530
-13,Tasty Hut,540,520
-14,Print Shop,540,440
-15,Biryani/Chai/Paratha Shop,640,570
-16,Fries Shop,740,540
-17,Shawarma Shop,830,490
+0,Entrance,6367,1930
+1,EE Building,7575,1095
+2,CS Building,5333,1001
+3,Basketball/Volleyball Court,4927,1719
+4,Badminton Court,750,1602
+5,Sports Room,900,232
+6,Futsal Court,900,850
+7,MultiPurpose Building,3300,760
+8,Library,3450,450
+9,Cafeteria,3800,250
+10,FAST Dhaba,4492,288
+11,Mosque,5521,290
+12,Juice Corner,6682,100
+13,Tasty Hut,7048,622
+14,Print Shop,6860,100
+15,Biryani/Chai/Paratha Shop,6772,100
+16,Fries Shop,6592,100
+17,Shawarma Shop,6502,100
