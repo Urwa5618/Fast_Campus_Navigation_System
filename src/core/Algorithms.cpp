@@ -5,23 +5,17 @@
 
 using namespace std;
 
-// Weight of the edge u -> v (smallest one if there are duplicates)
-static double edgeWeight(const Graph &g, int u, int v)
-{
+static double edgeWeight(const Graph& g, int u, int v) {
     double best = numeric_limits<double>::infinity();
-    for (const auto &e : g.neighbors(u))
-        if (e.to == v && e.weight < best)
-            best = e.weight;
+    for (const auto& e : g.neighbors(u))
+        if (e.to == v && e.weight < best) best = e.weight;
     return best;
 }
 
-// Walk parent[] back from dst to the source (parent == -1), then reverse
-static RouteResult buildResult(const Graph &g, const vector<int> &parent, int dst)
-{
+static RouteResult buildResult(const Graph& g, const vector<int>& parent, int dst) {
     RouteResult r;
     r.found = true;
-    for (int v = dst; v != -1; v = parent[v])
-        r.path.push_back(v);
+    for (int v = dst; v != -1; v = parent[v]) r.path.push_back(v);
     reverse(r.path.begin(), r.path.end());
     r.hops = static_cast<int>(r.path.size()) - 1;
     for (size_t i = 0; i + 1 < r.path.size(); i++)
@@ -29,13 +23,10 @@ static RouteResult buildResult(const Graph &g, const vector<int> &parent, int ds
     return r;
 }
 
-// ---------------- BFS: queue, fewest edges ----------------
-RouteResult bfs(const Graph &g, int src, int dst)
-{
+RouteResult bfs(const Graph& g, int src, int dst) {
     RouteResult none;
     int n = g.size();
-    if (src < 0 || dst < 0 || src >= n || dst >= n)
-        return none;
+    if (src < 0 || dst < 0 || src >= n || dst >= n) return none;
 
     vector<bool> visited(n, false);
     vector<int> parent(n, -1);
@@ -44,16 +35,15 @@ RouteResult bfs(const Graph &g, int src, int dst)
     visited[src] = true;
     q.push(src);
 
-    while (!q.empty())
-    {
+    while (!q.empty()) {
         int u = q.front();
         q.pop();
-        if (u == dst)
-            break;
-        for (const auto &e : g.neighbors(u))
-        {
-            if (!visited[e.to])
-            {
+        if (u == dst) break;
+        // A named place can only be the start or the end of a route, never a shortcut:
+        // the walk between places goes through road corners and doors only.
+        if (u != src && !isJunction(g.location(u))) continue;
+        for (const auto& e : g.neighbors(u)) {
+            if (!visited[e.to]) {
                 visited[e.to] = true;
                 parent[e.to] = u;
                 q.push(e.to);
@@ -61,45 +51,36 @@ RouteResult bfs(const Graph &g, int src, int dst)
         }
     }
 
-    if (!visited[dst])
-        return none; // unreachable
+    if (!visited[dst]) return none;
     return buildResult(g, parent, dst);
 }
 
-// ---------------- Dijkstra: priority queue, shortest distance ----------------
-RouteResult dijkstra(const Graph &g, int src, int dst)
-{
+RouteResult dijkstra(const Graph& g, int src, int dst) {
     RouteResult none;
     int n = g.size();
-    if (src < 0 || dst < 0 || src >= n || dst >= n)
-        return none;
+    if (src < 0 || dst < 0 || src >= n || dst >= n) return none;
 
     const double INF = numeric_limits<double>::infinity();
     vector<double> dist(n, INF);
     vector<int> parent(n, -1);
 
-    // min-heap of (distance so far, node)
     priority_queue<pair<double, int>,
                    vector<pair<double, int>>,
-                   greater<pair<double, int>>>
-        pq;
+                   greater<pair<double, int>>> pq;
 
     dist[src] = 0;
     pq.push({0, src});
 
-    while (!pq.empty())
-    {
+    while (!pq.empty()) {
         auto [d, u] = pq.top();
         pq.pop();
-        if (d > dist[u])
-            continue; // outdated entry, skip
-        if (u == dst)
-            break; // shortest path to dst is final
-        for (const auto &e : g.neighbors(u))
-        {
+        if (d > dist[u]) continue;
+        if (u == dst) break;
+        // Same rule as in BFS: places are only start/end points, not shortcuts.
+        if (u != src && !isJunction(g.location(u))) continue;
+        for (const auto& e : g.neighbors(u)) {
             double nd = d + e.weight;
-            if (nd < dist[e.to])
-            {
+            if (nd < dist[e.to]) {
                 dist[e.to] = nd;
                 parent[e.to] = u;
                 pq.push({nd, e.to});
@@ -107,7 +88,6 @@ RouteResult dijkstra(const Graph &g, int src, int dst)
         }
     }
 
-    if (dist[dst] == INF)
-        return none; // unreachable
+    if (dist[dst] == INF) return none;
     return buildResult(g, parent, dst);
 }

@@ -1,19 +1,59 @@
 id,name,x,y
-0,Entrance,6367,1950
-1,EE Building,7195,1210
-2,CS Building,5333,1327
-3,Basketball/Volleyball Court,4927,1587
-4,Badminton Court,1320,1445
-5,Sports Room,1600,232
-6,Futsal Court,1600,850
-7,MultiPurpose Building,3000,230
-8,Library,3250,230
-9,Cafeteria,3700,230
-10,FAST Dhaba,4362,288
-11,Mosque,5521,503
-12,Juice Corner,6682,120
+0,Entrance,6367,1900
+1,EE Building,7730,1210
+2,CS Building,5333,1210
+3,Basketball / Volleyball Court,4927,1625
+4,Badminton Court,1250,1445
+5,Sports Room,1550,232
+6,Futsal Court,1550,850
+7,Multipurpose Building,3600,420
+8,Library,3420,590
+9,Cafeteria,3600,760
+10,FAST Dhaba,4492,420
+11,Mosque,5521,420
+12,Juice Corner,6682,140
 13,Tasty Hut,7048,452
-14,Print Shop,6860,120
-15,Biryani/Chai/Paratha Shop,6772,120
-16,Fries Shop,6592,120
-17,Shawarma Shop,6502,120
+14,Print Shop,6860,140
+15,Biryani/ Breakfast/ Chai Shop,6772,140
+16,Fries Shop,6592,140
+17,Shawarma Shop,6502,140
+18,~v262,6367,262
+19,~v590,6367,590
+20,~v1210,6367,1210
+21,~v1540,6367,1540
+22,~v1825,6367,1825
+23,~t6502,6502,262
+24,~t6592,6592,262
+25,~t6682,6682,262
+26,~t6772,6772,262
+27,~t6860,6860,262
+28,~t7048,7048,262
+29,~t7730,7730,262
+30,~b7730,7730,1825
+31,~m5521,5521,590
+32,~m5333,5333,590
+33,~l5333,5333,1540
+34,~l4927,4927,1540
+35,~g150,4100,150
+36,~g288,4100,288
+37,~g420,4100,420
+38,~g590,4100,590
+39,~g1210,4100,1210
+40,~g1363,4100,1363
+41,~g1540,4100,1540
+42,~w150,1720,150
+43,~w232,1720,232
+44,~w600,1720,600
+45,~w850,1720,850
+46,~w1363,1720,1363
+47,~w1445,1720,1445
+48,~door-cs-left,4345,1210
+49,~door-cs-right,6320,1210
+50,~door-cs-bottom,5333,1327
+51,~door-cs-back,5333,675
+52,~door-ee-front,7195,1210
+53,~door-ee-top,7730,437
+54,~door-ee-bottom,7730,1750
+55,~door-mp-east,3852,590
+56,~door-mp-west,1880,600
+57,~mp-lobby,3600,590
